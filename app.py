@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-from flask_SQLALchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 import os
 
 app = Flask(__name__)
@@ -36,6 +36,9 @@ def delete(id):
     return redirect(url_for('index'))
 
 if __name__ == '__main__':
+    # FIX: create_all inside app context
     if not os.path.exists(db_path):
-        db.create_all()
+        with app.app_context():
+            db.create_all()
+
     app.run(host='0.0.0.0', port=5000, debug=True)
