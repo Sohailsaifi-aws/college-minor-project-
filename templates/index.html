@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head>
+  <title>Todo App</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Todo List</h1>
+    <form action="/add" method="post">
+      <input type="text" name="task" placeholder="New task" required>
+      <button type="submit">Add</button>
+    </form>
+
+    <ul>
+      {% for t in todos %}
+        <li>
+          {{ t.task }}
+          <form action="/delete/{{ t.id }}" method="post" style="display:inline;">
+            <button type="submit">Delete</button>
+          </form>
+        </li>
+      {% else %}
+        <li>No tasks yet.</li>
+      {% endfor %}
+    </ul>
+  </div>
+</body>
+</html>
